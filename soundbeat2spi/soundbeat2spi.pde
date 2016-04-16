@@ -34,23 +34,6 @@ void maxAll(byte reg, byte col){
   }
 }
 
-void maxOne(byte maxNr, byte reg, byte col){
-  int c = 0;
-  
-  for ( c = maxInUse; c > maxNr; c--) {
-    adc.transfer(0);    // means no operation
-    adc.transfer(0);    // means no operation
-  }
-
-  adc.transfer(reg);  // specify register
-  adc.transfer(col);//((data & 0x01) * 256) + data >> 1); // put data 
-
-  for ( c =maxNr-1; c >= 1; c--) {
-    adc.transfer(0);    // means no operation
-    adc.transfer(0);    // means no operation
-  }
-}
-
 void setup(){
   // printArray(SPI.list());
   adc = new SPI(SPI.list()[0]);
@@ -71,13 +54,13 @@ void setup(){
 
 void draw(){
  //if you use just one MAX7219 it should look like this
-   maxSingle(1,1);                       //  + - - - - - - -
-   maxSingle(2,2);                       //  - + - - - - - -
-   maxSingle(3,4);                       //  - - + - - - - -
-   maxSingle(4,8);                       //  - - - + - - - -
-   maxSingle(5,16);                      //  - - - - + - - -
-   maxSingle(6,32);                      //  - - - - - + - -
-   maxSingle(7,64);                      //  - - - - - - + -
-   maxSingle(8,128);                     //  - - - - - - - +
-
+  maxSingle(byte(1),byte(0));                       //  + - - - - - - -
+/*   maxSingle(byte(2),byte(2));                       //  - + - - - - - -
+   maxSingle(byte(3),byte(4));                       //  - - + - - - - -
+   maxSingle(byte(4),byte(8));                       //  - - - + - - - -
+   maxSingle(byte(5),byte(16));                      //  - - - - + - - -
+   maxSingle(byte(6),byte(32));                      //  - - - - - + - -
+   maxSingle(byte(7),byte(64));                      //  - - - - - - + -
+   maxSingle(byte(8),byte(128));                     //  - - - - - - - +
+*/
 }
