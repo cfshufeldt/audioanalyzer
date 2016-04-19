@@ -25,7 +25,7 @@ final int max7219_reg_scanLimit   = 0x0b;
 final int max7219_reg_shutdown    = 0x0c;
 final int max7219_reg_displayTest = 0x0f;
 
-int linePos = 0x80;
+int linePos = 0x7f;
 boolean lineDown = true;
 
 void maxBrightness(int intensity){
@@ -80,7 +80,7 @@ void draw(){
   float a = map(eRadius, 20, 80, 60, 255);
   fill(0, 255, 0, a);
   if ( beat.isOnset() ){
-    lineDrop();
+    lineDrop(0x7f);
     eRadius = 80;   
   }
 
@@ -90,8 +90,10 @@ void draw(){
 
 }
 
-void lineDrop(){
-   for(int k = max7219_reg_digit0; k <= max7219_reg_digit7; k++){
+void lineDrop(int startPos){
+  //if(startPos < 0x00 || startPos > 0x80)
+  
+  for(int k = max7219_reg_digit0; k <= max7219_reg_digit7; k++){
     maxTransfer(k, linePos);
   }
 
@@ -102,7 +104,7 @@ void lineDrop(){
   } else if (linePos < 0x80 && !lineDown) {
     linePos = linePos << 1;
 */  } else {
-    linePos = 0x80;
+    linePos = 0x7f;
     lineDown = true;
   } 
 }
